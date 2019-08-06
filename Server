@@ -1,0 +1,119 @@
+raw_data <- read.csv("Desktop/testdocument.txt", header = FALSE, stringsAsFactors=FALSE)
+my_data <- as.data.frame(split(answers, 1:5))
+
+answer1 <- data_frame(text=my_df$V1)
+answer2 <- data_frame(text=my_df$V1.1)
+answer3 <- data_frame(text=my_df$V1.2)
+answer4 <- data_frame(text=my_df$V1.3)
+answer5 <- data_frame(text=my_df$V1.4)
+
+all_answer_combined <- rbind(answer1,answer2,answer3,answer4,answer5)
+
+## STOP WORDS
+data(stop_words)
+custom_stop_words <- bind_rows(data_frame(word = c("8","10","5","7","6"), lexicon = c("custom")),
+                               stop_words)
+
+
+## Frequencies for ALL questions to get tokens 
+frequencies_tokens <- all_answer_combined %>%
+  unnest_tokens(word, text) %>%
+  anti_join(custom_stop_words) %>%
+  count(word, sort=TRUE)
+
+freq_hist_all_answers <- frequencies_tokens %>%
+  filter(n > 2) %>% 
+  mutate(word = reorder(word,n )) %>%
+  ggplot(aes(word, n))+
+  geom_col()+
+  xlab(NULL)+
+  coord_flip()
+
+## Frequencies for Question 1 questions to get tokens 
+frequencies_tokens1 <- answer1 %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>%
+  count(word, sort=TRUE)
+
+freq_hist_answer_1 <- frequencies_tokens1 %>%
+  filter(n > 2) %>% 
+  mutate(word = reorder(word,n )) %>%
+  ggplot(aes(word, n))+
+  geom_col()+
+  xlab(NULL)+
+  coord_flip()
+
+print(freq_hist_answer_1)
+
+## Frequencies for Question 2 questions to get tokens 
+frequencies_tokens2 <- answer2 %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>%
+  count(word, sort=TRUE)
+
+freq_hist_answer_2 <- frequencies_tokens2 %>%
+  filter(n > 1) %>% 
+  mutate(word = reorder(word,n )) %>%
+  ggplot(aes(word, n))+
+  geom_col()+
+  xlab(NULL)+
+  coord_flip()
+
+print(freq_hist_answer_2)
+
+## Frequencies for Question 3 questions to get tokens 
+frequencies_tokens3 <- answer3 %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>%
+  count(word, sort=TRUE)
+
+freq_hist_answer_3 <- frequencies_tokens3 %>%
+  filter(n > 1) %>% 
+  mutate(word = reorder(word,n )) %>%
+  ggplot(aes(word, n))+
+  geom_col()+
+  xlab(NULL)+
+  coord_flip()
+
+print(freq_hist_answer_3)
+
+## Frequencies for Question 4 questions to get tokens 
+frequencies_tokens4 <- answer4 %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>%
+  count(word, sort=TRUE)
+
+freq_hist_answer_4 <- frequencies_tokens4 %>%
+  filter(n > 1) %>% 
+  mutate(word = reorder(word,n )) %>%
+  ggplot(aes(word, n))+
+  geom_col()+
+  xlab(NULL)+
+  coord_flip()
+
+print(freq_hist_answer_4)
+
+## Frequencies for Question 5 questions to get tokens 
+frequencies_tokens5 <- answer5 %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>%
+  count(word, sort=TRUE)
+
+freq_hist_answer_5 <- frequencies_tokens5 %>%
+  filter(n > 1) %>% 
+  mutate(word = reorder(word,n )) %>%
+  ggplot(aes(word, n))+
+  geom_col()+
+  xlab(NULL)+
+  coord_flip()
+
+print(freq_hist_answer_5)
+
+
+
+
+
+
+
+
+
