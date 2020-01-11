@@ -15,3 +15,5 @@ Normalizing <- Changes all the data to become the same level, eg all lowercase a
 Stop words <- Words that do not add value such as "The", "a" as well as "and".
 
 Bag of Words <- A representation model used in NLP
+
+New project coming  
